@@ -1,0 +1,6 @@
+@FullStackDataStructureVisualizer.Server_HostAddress = http://localhost:5008
+
+GET {{FullStackDataStructureVisualizer.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

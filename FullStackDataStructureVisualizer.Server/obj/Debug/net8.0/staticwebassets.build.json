@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "vp3qw8q0YA/Ajd9+o234ZiIZRMtj6YxGQ49WC4D0dH0=",
+  "Source": "FullStackDataStructureVisualizer.Server",
+  "BasePath": "_content/FullStackDataStructureVisualizer.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\gelli\\source\\repos\\FullStackDataStructureVisualizer\\fullstackdatastructurevisualizer.client\\fullstackdatastructurevisualizer.client.esproj",
+      "Version": 2,
+      "Source": "fullstackdatastructurevisualizer.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
