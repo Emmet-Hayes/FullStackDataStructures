@@ -50,6 +50,7 @@ export default defineConfig({
                 target: 'https://localhost:7108',
                 secure: false
             }
+            // add other targets here
         },
         port: 5173,
         https: {

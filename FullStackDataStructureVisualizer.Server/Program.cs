@@ -1,6 +1,19 @@
+using FullStackDataStructureVisualizer.Server.Data;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Get the database password from the environment
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+// Configure DbContext with Npgsql and include the secret password
+var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection") + $"Password={dbPassword};";
+builder.Services.AddDbContext<GraphDbContext>(options =>
+    options.UseNpgsql(defaultConnection));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

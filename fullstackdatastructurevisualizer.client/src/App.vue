@@ -5,25 +5,18 @@
     const graphData = ref({ nodes: [], edges: [] });
 
     onMounted(async () => {
-        console.log("Starting the fetch...\n");
         const response = await fetch('/Graph'); // Adjust the endpoint as necessary
-        if (response.ok) {
-            console.log("response is ok\n");
-            console.log("response: " + response);
+        if (response.ok)
+        {
             const data = await response.json();
-            console.log("Data fetched");
             graphData.value = data;
-            console.log("fetch succeeded\n");
         }
-        else
-            console.log("Fetch failed.\n");
-        console.log("Response gotten: " + response + "\n");
     });
 </script>
 
 <template>
     <main>
-        <GraphVisualizer :nodes="graphData.nodes" :edges="graphData.edges" />
+        <GraphVisualizer :nodes="graphData.nodes" :edges="graphData.edges" :isDirected="graphData.isDirected" />
     </main>
 </template>
 
