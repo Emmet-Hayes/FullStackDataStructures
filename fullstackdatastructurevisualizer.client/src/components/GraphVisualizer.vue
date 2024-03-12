@@ -1,7 +1,7 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;">
-        <circle v-for="(node, index) in nodes" :key="'node'+index"
-                :cx="node.x" :cy="node.y" :r="radius"
+        <circle v-for="(vertex, index) in vertices" :key="'vertex'+index"
+                :cx="vertex.x" :cy="vertex.y" :r="radius"
                 style="fill: lightpink; stroke: black; stroke-width: 1px;" />
         <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
                 orient="auto" markerUnits="strokeWidth">
@@ -11,18 +11,16 @@
               :d="calculatePathD(edge)"
               style="stroke: black; stroke-width: 2px; fill: none;"
               :marker-end="isDirected ? 'url(#arrowhead)' : ''" />
-        <!--
-        <text v-for="(edge, index) in edges" v-if="edge.weight !== 1" :key="'weight' + index"
+        <text v-for="(edge, index) in edges" v-if="edge?.weight !== 1" :key="'weight' + index"
               :x="calculateMidpoint(edge).x" :y="calculateMidpoint(edge).y"
               alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none; fill: red;">
             {{ edge.weight }}
         </text> 
-        -->
-        <text v-for="(node, index) in nodes" :key="'label'+index"
-              :x="node.x" :y="node.y" alignment-baseline="middle" text-anchor="middle"
+        <text v-for="(vertex, index) in vertices" :key="'label'+index"
+              :x="vertex.x" :y="vertex.y" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
-            {{ node.label }}
+            {{ vertex.label }}
         </text>
     </svg>
 </template>
@@ -30,21 +28,23 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
 
-    interface Node {
+    interface vertex
+    {
         x: number;
         y: number;
         label: string;
     }
 
-    interface Edge {
-        from: number; // Assuming these are indexes in the nodes array
+    interface Edge
+    {
+        from: number; // Assuming these are indexes in the vertices array
         to: number;
     }
 
     export default defineComponent({
         name: 'GraphVisualizer',
         props: {
-            nodes: Array as () => Node[],
+            vertices: Array as () => vertex[],
             edges: Array as () => Edge[],
             width: {
                 type: Number,
@@ -65,37 +65,41 @@
         },
         methods: {
             calculatePathD(edge: Edge) {
-                console.log("Nodes:", this.nodes);
-                console.log("edge:", edge);
-                const fromNode = this.nodes[edge.from];
-                const toNode = this.nodes[edge.to];
-                console.log('From Node:', fromNode, 'To Node:', toNode);
+                const fromvertex = this.vertices[edge.from];
+                const tovertex = this.vertices[edge.to];
 
-                if (!fromNode || !toNode) {
-                    console.error('Undefined node detected', { fromNode, toNode });
-                    return ''; // Return an empty path if nodes are undefined
+                if (!fromvertex || !tovertex) {
+                    console.error('Undefined vertex detected', { fromvertex, tovertex });
+                    return ''; // Return an empty path if vertices are undefined
                 }
-                const dx = toNode.x - fromNode.x;
-                const dy = toNode.y - fromNode.y;
+
+                const dx = tovertex.x - fromvertex.x;
+                const dy = tovertex.y - fromvertex.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Adjust start and end points to be on the edge of the node circles
+                // Adjust start and end points to be on the edge of the vertex circles
                 const offsetX = (dx * this.radius) / dist;
                 const offsetY = (dy * this.radius) / dist;
 
-                const startX = fromNode.x + offsetX;
-                const startY = fromNode.y + offsetY;
-                const endX = toNode.x - offsetX;
-                const endY = toNode.y - offsetY;
+                const startX = fromvertex.x + offsetX;
+                const startY = fromvertex.y + offsetY;
+                const endX = tovertex.x - offsetX;
+                const endY = tovertex.y - offsetY;
 
                 return `M ${startX} ${startY} L ${endX} ${endY}`;
             },
             calculateMidpoint(edge: Edge) {
-                const fromNode = this.nodes[edge.from];
-                const toNode = this.nodes[edge.to];
+                const fromvertex = this.vertices[edge.from];
+                const tovertex = this.vertices[edge.to];
+
+                if (!fromvertex || !tovertex) {
+                    console.error('Undefined edge detected', { fromvertex, tovertex });
+                    return ''; // Return an empty path if vertices are undefined
+                }
+
                 return {
-                    x: (fromNode.x + toNode.x) / 2,
-                    y: (fromNode.y + fromNode.y) / 2
+                    x: (fromvertex.x + tovertex.x) / 2,
+                    y: (fromvertex.y + tovertex.y - 30) / 2
                 };
             }
         }

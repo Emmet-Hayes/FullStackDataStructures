@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FullStackDataStructureVisualizer.Server.Models
 {
-    [Table("nodes")]
-    public class Node
+    [Table("vertices")]
+    public class Vertex
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,12 +24,11 @@ namespace FullStackDataStructureVisualizer.Server.Models
         public long graphid { get; set; }
 
         // For EF Core
-        public Node()
+        public Vertex()
         {
-
         }
 
-        public Node(int id, float x, float y, string label)
+        public Vertex(int id, float x, float y, string label)
         {
             ID = id;
             X = x;
@@ -45,10 +44,10 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
         
-        [Column("fromnode")]
+        [Column("fromvertex")]
         public int From { get; set; }
 
-        [Column("tonode")]
+        [Column("tovertex")]
         public int To { get; set; }
 
         [Column("weight")]
@@ -78,12 +77,12 @@ namespace FullStackDataStructureVisualizer.Server.Models
 
         public static int Counter = 0;
 
-        public List<Node> Nodes { get; set; }
+        public List<Vertex> Vertices { get; set; }
         public List<Edge> Edges { get; set; }
 
         public Graph()
         {
-            Nodes = new List<Node>();
+            Vertices = new List<Vertex>();
             Edges = new List<Edge>();
         }
 
@@ -91,7 +90,7 @@ namespace FullStackDataStructureVisualizer.Server.Models
         {
             ID = ++Counter;
             IsDirected = isDirected;
-            Nodes = new List<Node>();
+            Vertices = new List<Vertex>();
             Edges = new List<Edge>();
         }
     }

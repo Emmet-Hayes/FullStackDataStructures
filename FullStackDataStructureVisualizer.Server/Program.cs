@@ -13,6 +13,14 @@ var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection") + $"Password={dbPassword};";
 builder.Services.AddDbContext<GraphDbContext>(options =>
     options.UseNpgsql(defaultConnection));
+builder.Services.AddDbContext<TreeDbContext>(options =>
+    options.UseNpgsql(defaultConnection));
+builder.Services.AddDbContext<LListDbContext>(options =>
+    options.UseNpgsql(defaultConnection));
+builder.Services.AddDbContext<AArrayDbContext>(options =>
+    options.UseNpgsql(defaultConnection));
+builder.Services.AddDbContext<DDictDbContext>(options =>
+    options.UseNpgsql(defaultConnection));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

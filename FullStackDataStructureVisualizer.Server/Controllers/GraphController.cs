@@ -17,20 +17,18 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "GetGraph")]
+        [HttpGet(Name = "Graph")]
         public async Task<ActionResult<Graph>> Get()
         {
-            var graph = await _context.Graphs.FirstOrDefaultAsync();
+            var graphList = await _context.Graphs.ToListAsync();
+            var graph = graphList.ElementAt(0); // just get the first graph for now
             if (graph == null)
-            {
                 return NotFound();
-            }
 
             // Assuming Graph has properties to directly assign these collections
-            graph.Nodes = await _context.Nodes.ToListAsync();
+            graph.Vertices = await _context.Vertices.ToListAsync();
             graph.Edges = await _context.Edges.ToListAsync();
 
-            
             return graph;
         }
     }

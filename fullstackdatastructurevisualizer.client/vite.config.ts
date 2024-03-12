@@ -49,8 +49,23 @@ export default defineConfig({
             '^/Graph': {
                 target: 'https://localhost:7108',
                 secure: false
+            },
+            '^/Tree': {
+                target: 'https://localhost:7108',
+                secure: false
+            },
+            '^/List': {
+                target: 'https://localhost:7108',
+                secure: false
+            },
+            '^/Array': {
+                target: 'https://localhost:7108',
+                secure: false
+            },
+            '^/Dictionary': {
+                target: 'https://localhost:7108',
+                secure: false
             }
-            // add other targets here
         },
         port: 5173,
         https: {

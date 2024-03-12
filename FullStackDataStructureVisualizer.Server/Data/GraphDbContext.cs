@@ -8,7 +8,7 @@ namespace FullStackDataStructureVisualizer.Server.Data
         public GraphDbContext(DbContextOptions<GraphDbContext> options)
         : base(options) { }
 
-        public DbSet<Node> Nodes { get; set; }
+        public DbSet<Vertex> Vertices { get; set; }
         public DbSet<Edge> Edges { get; set; }
         public DbSet<Graph> Graphs { get; set; }
     }
