@@ -1,9 +1,9 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;">
-        <circle v-for="(arraynode, index) in arraynodes" :key="'arraynode'+index"
+        <circle v-for="(arraynode, index) in arrayNodes" :key="'arraynode'+index"
                 :cx="arraynode.x" :cy="arraynode.y" :r="radius"
                 style="fill: lightblue; stroke: black; stroke-width: 1px;" />
-        <text v-for="(arraynode, index) in arraynodes" :key="'label'+index"
+        <text v-for="(arraynode, index) in arrayNodes" :key="'label'+index"
               :x="arraynode.x" :y="arraynode.y - 10" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
             {{ arraynode.label }}
@@ -26,7 +26,7 @@
     export default defineComponent({
         name: 'ArrayVisualizer',
         props: {
-            arraynodes: Array as PropType<ArrayNode[]>,
+            arrayNodes: Array as PropType<ArrayNode[]>,
             width: {
                 type: Number,
                 default: 1200

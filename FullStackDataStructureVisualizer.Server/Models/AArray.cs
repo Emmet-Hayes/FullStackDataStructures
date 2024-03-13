@@ -21,7 +21,7 @@ namespace FullStackDataStructureVisualizer.Server.Models
         public string? Label { get; set; }
 
         [Column("arrayid")]
-        public long treeid { get; set; }
+        public long arrayid { get; set; }
 
         [Column("index")]
         public long? index { get; set; }
@@ -40,6 +40,7 @@ namespace FullStackDataStructureVisualizer.Server.Models
         }
     }
 
+    [Table("arrays")]
     public class AArray
     {
         [Key]

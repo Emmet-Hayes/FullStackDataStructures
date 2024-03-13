@@ -21,7 +21,7 @@ namespace FullStackDataStructureVisualizer.Server.Models
         public string? Label { get; set; }
 
         [Column("listid")]
-        public long treeid { get; set; }
+        public long listid { get; set; }
 
         [Column("nextid")]
         public long? nextid { get; set; }
@@ -30,16 +30,9 @@ namespace FullStackDataStructureVisualizer.Server.Models
         public ListNode()
         {
         }
-
-        public ListNode(int id, float x, float y, string label)
-        {
-            ID = id;
-            X = x;
-            Y = y;
-            Label = label;
-        }
     }
 
+    [Table("lists")]
     public class LList
     {
         [Key]

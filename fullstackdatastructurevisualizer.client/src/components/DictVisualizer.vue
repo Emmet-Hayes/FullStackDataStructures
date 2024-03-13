@@ -1,9 +1,9 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;">
-        <circle v-for="(dictnode, index) in dictnodes" :key="'dictnode'+index"
+        <circle v-for="(dictnode, index) in dictNodes" :key="'dictnode'+index"
                 :cx="dictnode.x" :cy="dictnode.y" :r="radius"
                 style="fill: lightblue; stroke: black; stroke-width: 1px;" />
-        <text v-for="(dictnode, index) in dictnodes" :key="'label'+index"
+        <text v-for="(dictnode, index) in dictNodes" :key="'label'+index"
               :x="dictnode.x" :y="dictnode.y - 10" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
             {{ dictnode.label }}
@@ -31,7 +31,7 @@
     export default defineComponent({
         name: 'DictVisualizer',
         props: {
-            dictnodes: Array as PropType<DictNode[]>,
+            dictNodes: Array as PropType<DictNode[]>,
             width: {
                 type: Number,
                 default: 1200

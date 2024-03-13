@@ -11,5 +11,28 @@ namespace FullStackDataStructureVisualizer.Server.Data
         public DbSet<ListNode> ListNodes { get; set; }
 
         public DbSet<LList> LList { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ListNode>(entity =>
+            {
+                entity.ToTable("listnodes");
+                entity.HasKey(e => e.ID);
+                entity.HasOne<LList>()
+                      .WithMany(l => l.ListNodes)
+                      .HasForeignKey(ln => ln.listid);
+            });
+
+            modelBuilder.Entity<LList>(entity =>
+            {
+                entity.ToTable("lists");
+                entity.HasKey(e => e.ID);
+            });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
+
+
 }

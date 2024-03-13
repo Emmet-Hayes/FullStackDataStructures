@@ -54,15 +54,15 @@ export default defineConfig({
                 target: 'https://localhost:7108',
                 secure: false
             },
-            '^/List': {
+            '^/LList': {
                 target: 'https://localhost:7108',
                 secure: false
             },
-            '^/Array': {
+            '^/AArray': {
                 target: 'https://localhost:7108',
                 secure: false
             },
-            '^/Dictionary': {
+            '^/DDict': {
                 target: 'https://localhost:7108',
                 secure: false
             }

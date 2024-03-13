@@ -20,14 +20,14 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [Column("label")]
         public string? Label { get; set; }
 
-        [Column("listid")]
-        public long treeid { get; set; }
+        [Column("dictid")]
+        public long dictid { get; set; }
 
         [Column("key")]
-        public long key { get; set; }
+        public string key { get; set; }
 
         [Column("value")]
-        public long value { get; set; }
+        public string value { get; set; }
 
         // For EF Core
         public DictNode()
@@ -43,6 +43,7 @@ namespace FullStackDataStructureVisualizer.Server.Models
         }
     }
 
+    [Table("dicts")]
     public class DDict
     {
         [Key]

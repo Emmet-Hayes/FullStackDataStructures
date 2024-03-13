@@ -1,12 +1,12 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;">
-        <circle v-for="(listnode, index) in listnodes" :key="'listnode'+index"
+        <circle v-for="(listnode, index) in listNodes" :key="'listnode'+index"
                 :cx="listnode.x" :cy="listnode.y" :r="radius"
                 style="fill: lightblue; stroke: black; stroke-width: 1px;" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
                 :d="calculatePathD(edge)"
                 style="stroke: black; stroke-width: 2px; fill: none; marker-end: url(#arrowhead);" />
-        <text v-for="(listnode, index) in listnodes" :key="'label'+index"
+        <text v-for="(listnode, index) in listNodes" :key="'label'+index"
                 :x="listnode.x" :y="listnode.y - 10" alignment-baseline="middle" text-anchor="middle"
                 style="font-size: 12px; user-select: none;">
             {{ listnode.label }}
@@ -38,7 +38,7 @@
     export default defineComponent({
         name: 'ListVisualizer',
         props: {
-            listnodes: Array as PropType<ListNode[]>,
+            listNodes: Array as PropType<ListNode[]>,
             width: {
                 type: Number,
                 default: 1200
@@ -62,9 +62,10 @@
         },
         computed: {
             edges() {
-                const computedEdges = this.listnodes?.filter(node => node.nextid !== undefined)
+                console.log("ListNodes: ", this.listNodes);
+                const computedEdges = this.listNodes?.filter(node => node.nextid !== undefined)
                     ?.map(node => {
-                        const parentNode = this.listnodes.find(parent => parent.id === node.nextid);
+                        const parentNode = this.listNodes.find(parent => parent.id === node.nextid);
                         console.log(`Looking for next node ${node.id} with parentId ${node.nextid}, found:`, parentNode);
                         if (!parentNode) {
                             return null;
@@ -76,7 +77,7 @@
                     })
                     ?.filter(edge => edge !== null) || [];
 
-                console.log('Computed edges:', computedEdges);
+                console.log('Computed list edges:', computedEdges);
                 return computedEdges;
             }
         },
@@ -86,7 +87,7 @@
                 const tonode = edge.to;
 
                 if (!fromnode || !tonode) {
-                    console.error('Undefined vertex detected', { fromnode, tonode });
+                    console.error('Undefined list edge detected', { fromnode, tonode });
                     return ''; // Return an empty path if vertices are undefined
                 }
 

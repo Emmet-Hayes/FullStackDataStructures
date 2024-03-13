@@ -21,7 +21,6 @@ builder.Services.AddDbContext<AArrayDbContext>(options =>
     options.UseNpgsql(defaultConnection));
 builder.Services.AddDbContext<DDictDbContext>(options =>
     options.UseNpgsql(defaultConnection));
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
