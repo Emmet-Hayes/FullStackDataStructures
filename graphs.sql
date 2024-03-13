@@ -12,6 +12,7 @@ CREATE TABLE vertices (
     x FLOAT NOT NULL,
     y FLOAT NOT NULL,
     graphid INTEGER NOT NULL,
+    value INTEGER NOT NULL DEFAULT 0,
     label VARCHAR(32),
     description VARCHAR(255),
     CONSTRAINT fk_graphid FOREIGN KEY (graphid) REFERENCES graphs(id)
@@ -33,19 +34,19 @@ INSERT INTO graphs (isdirected) VALUES
 (FALSE), 
 (TRUE);
 
-INSERT INTO vertices (x, y, label, graphid) VALUES
-(100, 150, 'A', 1),
-(200, 250, 'B', 1),
-(300, 150, 'C', 1),
-(400, 250, 'D', 1),
-(500, 350, 'E', 1),
-(600, 450, 'F', 1),
-(700, 350, 'G', 1),
-(800, 450, 'H', 1),
-(900, 100, 'I', 1),
-(1000, 150, 'J', 1),
-(1100, 250, 'K', 1),
-(1100, 350, 'L', 1);
+INSERT INTO vertices (x, y, label, graphid, value) VALUES
+(100, 150, 'A', 1, 14),
+(200, 250, 'B', 1, 31),
+(300, 150, 'C', 1, 25),
+(400, 250, 'D', 1, 37),
+(500, 350, 'E', 1, 200),
+(600, 450, 'F', 1, 36),
+(700, 350, 'G', 1, 16),
+(800, 450, 'H', 1, 0),
+(900, 100, 'I', 1, -3),
+(1000, 150, 'J', 1, -7),
+(1100, 250, 'K', 1, 13),
+(1100, 350, 'L', 1, 13);
 
 INSERT INTO edges (fromvertex, tovertex, weight, graphid) VALUES
 (1, 2, 2, 1),

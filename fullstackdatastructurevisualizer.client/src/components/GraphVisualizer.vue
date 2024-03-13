@@ -2,7 +2,7 @@
     <svg :width="width" :height="height" style="border: 1px solid black;">
         <circle v-for="(vertex, index) in vertices" :key="'vertex'+index"
                 :cx="vertex.x" :cy="vertex.y" :r="radius"
-                style="fill: lightpink; stroke: black; stroke-width: 1px;" />
+                style="fill: lightsteelblue; stroke: black; stroke-width: 1px;" />
         <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
                 orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#000" />
@@ -16,11 +16,16 @@
               alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none; fill: red;">
             {{ edge.weight }}
-        </text> 
+        </text>
+        <text v-for="(vertex, index) in vertices" :key="'label'+index"
+              :x="vertex.x" :y="vertex.y - 30" alignment-baseline="middle" text-anchor="middle"
+              style="font-size: 12px; user-select: none;">
+            {{ vertex.label }}
+        </text>
         <text v-for="(vertex, index) in vertices" :key="'label'+index"
               :x="vertex.x" :y="vertex.y" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
-            {{ vertex.label }}
+            {{ vertex.value }}
         </text>
     </svg>
 </template>

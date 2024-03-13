@@ -23,6 +23,9 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [Column("graphid")]
         public long graphid { get; set; }
 
+        [Column("value")]
+        public int value { get; set; }
+
         // For EF Core
         public Vertex()
         {

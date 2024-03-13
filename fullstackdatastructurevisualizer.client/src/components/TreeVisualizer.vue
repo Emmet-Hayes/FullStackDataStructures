@@ -2,14 +2,19 @@
     <svg :width="width" :height="height" style="border: 1px solid black;">
         <circle v-for="(treenode, index) in treeNodes" :key="'treenode'+index"
                 :cx="treenode.x" :cy="treenode.y" :r="radius"
-                style="fill: lightpink; stroke: black; stroke-width: 1px;" />
+                style="fill: limegreen; stroke: black; stroke-width: 1px;" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
               :d="calculatePathD(edge)"
               style="stroke: black; stroke-width: 2px; fill: none;" />
         <text v-for="(treenode, index) in treeNodes" :key="'label'+index"
-              :x="treenode.x" :y="treenode.y" alignment-baseline="middle" text-anchor="middle"
+              :x="treenode.x" :y="treenode.y - 30" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
             {{ treenode.label }}
+        </text>
+        <text v-for="(treenode, index) in treeNodes" :key="'label'+index"
+              :x="treenode.x" :y="treenode.y" alignment-baseline="middle" text-anchor="middle"
+              style="font-size: 12px; user-select: none;">
+            {{ treenode.value }}
         </text>
     </svg>
 </template>

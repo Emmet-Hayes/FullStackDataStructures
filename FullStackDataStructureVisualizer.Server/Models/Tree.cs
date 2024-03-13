@@ -26,6 +26,9 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [Column("parentid")]
         public long? parentid { get; set; }
 
+        [Column("value")]
+        public int value { get; set; }
+
         // For EF Core
         public TreeNode()
         {

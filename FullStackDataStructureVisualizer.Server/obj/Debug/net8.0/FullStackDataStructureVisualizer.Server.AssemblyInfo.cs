@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FullStackDataStructureVisualizer.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8565e3d4ab4576cf87b40229894b1fa15a45aa29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2dda2d7b644ed93bacf2246b2d65a00ff6662458")]
 [assembly: System.Reflection.AssemblyProductAttribute("FullStackDataStructureVisualizer.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FullStackDataStructureVisualizer.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

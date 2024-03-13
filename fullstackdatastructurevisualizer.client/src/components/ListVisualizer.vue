@@ -5,7 +5,7 @@
                 style="fill: lightblue; stroke: black; stroke-width: 1px;" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
               :d="calculatePathD(edge)"
-              style="stroke: black; stroke-width: 2px; fill: none; marker-end: url(#arrowhead);" />
+              :style="getPathStyle(edge)" />
         <text v-for="(listnode, index) in listNodes" :key="'label'+index"
               :x="listnode.x" :y="listnode.y - 40" alignment-baseline="middle" text-anchor="middle"
               style="font-size: 12px; user-select: none;">
@@ -20,6 +20,11 @@
                 orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#000" />
         </marker>
+        <marker id="arrowhead-start" markerWidth="10" markerHeight="10" refX="1" refY="3"
+                orient="auto" markerUnits="strokeWidth">
+            <path d="M9,0 L9,6 L0,3 z" fill="#000" />
+        </marker>
+
     </svg>
 </template>
 
@@ -57,22 +62,18 @@
                 type: Number,
                 default: 30
             },
-            isBst: {
-                type: Boolean,
-                default: false
-            },
-            isBalanced: {
+            isDoublyLinked: {
                 type: Boolean,
                 default: false
             }
         },
         computed: {
             edges() {
-                console.log("ListNodes: ", this.listNodes);
+                //console.log("ListNodes: ", this.listNodes);
                 const computedEdges = this.listNodes?.filter(node => node.nextid !== undefined)
                     ?.map(node => {
                         const parentNode = this.listNodes.find(parent => parent.id === node.nextid);
-                        console.log(`Looking for next node ${node.id} with parentId ${node.nextid}, found:`, parentNode);
+                        //console.log(`Looking for next node ${node.id} with parentId ${node.nextid}, found:`, parentNode);
                         if (!parentNode) {
                             return null;
                         }
@@ -83,11 +84,20 @@
                     })
                     ?.filter(edge => edge !== null) || [];
 
-                console.log('Computed list edges:', computedEdges);
+                //console.log('Computed list edges:', computedEdges);
                 return computedEdges;
             }
         },
         methods: {
+            getPathStyle(edge: Edge) {
+                return {
+                    stroke: 'black',
+                    strokeWidth: '2px',
+                    fill: 'none',
+                    markerEnd: 'url(#arrowhead)',
+                    markerStart: this.isDoublyLinked ? 'url(#arrowhead-start)' : ''
+                };
+            },
             calculatePathD(edge: Edge) {
                 const fromnode = edge.from;
                 const tonode = edge.to;
@@ -105,10 +115,17 @@
                 const offsetX = (dx * this.radius) / dist;
                 const offsetY = (dy * this.radius) / dist;
 
-                const startX = fromnode.x + offsetX;
-                const startY = fromnode.y + offsetY;
-                const endX = tonode.x - offsetX;
-                const endY = tonode.y - offsetY;
+                let startX = fromnode.x + offsetX;
+                let startY = fromnode.y + offsetY;
+                let endX = tonode.x - offsetX;
+                let endY = tonode.y - offsetY;
+
+                // If not doubly linked, ensure the arrow points from the current node to the next
+                if (!this.isDoublyLinked) {
+                    // Swap start and end points to reverse the arrow direction
+                    [startX, endX] = [endX, startX];
+                    [startY, endY] = [endY, startY];
+                }
 
                 return `M ${startX} ${startY} L ${endX} ${endY}`;
             },

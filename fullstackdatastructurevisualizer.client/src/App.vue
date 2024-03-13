@@ -63,15 +63,22 @@
 
 <template>
     <main>
-        <GraphVisualizer :vertices="graphData.vertices" :edges="graphData.edges" :isDirected="graphData.isDirected" />
-        <br />
-        <TreeVisualizer :treeNodes="treeData.treeNodes" :isBst="treeData.isBst" :isBalanced="treeData.isBalanced" />
-        <br />
-        <ListVisualizer :listNodes="listData.listNodes" :isdoublylinked="listData.isDoublyLinked" />
-        <br />
+        <h1>Arrays</h1>
         <ArrayVisualizer :arrayNodes="arrayData.arrayNodes" :isdynamic="arrayData.isDynamic" />
         <br />
-        <DictVisualizer :dictNodes="dictData.dictNodes" :hashfunction="dictData.hashfunction" />-->
+        <h1>Lists</h1>
+        <ListVisualizer :listNodes="listData.listNodes" :isDoublyLinked="listData.isDoublyLinked" />
+        <br />
+        <h1>Dictionaries</h1>
+        <DictVisualizer :dictNodes="dictData.dictNodes" :hashfunction="dictData.hashfunction" />
+        <h1>Trees</h1>
+        <TreeVisualizer :treeNodes="treeData.treeNodes" :isBst="treeData.isBst" :isBalanced="treeData.isBalanced" />
+        <br />
+        <h1>Graphs</h1>
+        <GraphVisualizer :vertices="graphData.vertices" :edges="graphData.edges" :isDirected="graphData.isDirected" />
+        <br />
+
+
     </main>
 </template>
 
