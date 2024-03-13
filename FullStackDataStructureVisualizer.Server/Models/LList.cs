@@ -26,6 +26,9 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [Column("nextid")]
         public long? nextid { get; set; }
 
+        [Column("value")]
+        public int value { get; set; }
+
         // For EF Core
         public ListNode()
         {

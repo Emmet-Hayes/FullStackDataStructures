@@ -27,9 +27,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
                 return NotFound();
 
             // Assuming Graph has properties to directly assign these collections
-            llist.ListNodes = await _context.ListNodes
-                              .FromSqlRaw("SELECT id, label, x, y, listid, nextid FROM listnodes")
-                              .ToListAsync();
+            llist.ListNodes = await _context.ListNodes.ToListAsync();
 
             return llist;
         }

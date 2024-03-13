@@ -26,6 +26,9 @@ namespace FullStackDataStructureVisualizer.Server.Models
         [Column("index")]
         public long? index { get; set; }
 
+        [Column("value")]
+        public int value { get; set; }
+
         // For EF Core
         public ArrayNode()
         {

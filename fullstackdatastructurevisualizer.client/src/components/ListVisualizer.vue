@@ -4,12 +4,17 @@
                 :cx="listnode.x" :cy="listnode.y" :r="radius"
                 style="fill: lightblue; stroke: black; stroke-width: 1px;" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
-                :d="calculatePathD(edge)"
-                style="stroke: black; stroke-width: 2px; fill: none; marker-end: url(#arrowhead);" />
+              :d="calculatePathD(edge)"
+              style="stroke: black; stroke-width: 2px; fill: none; marker-end: url(#arrowhead);" />
         <text v-for="(listnode, index) in listNodes" :key="'label'+index"
-                :x="listnode.x" :y="listnode.y - 10" alignment-baseline="middle" text-anchor="middle"
-                style="font-size: 12px; user-select: none;">
+              :x="listnode.x" :y="listnode.y - 40" alignment-baseline="middle" text-anchor="middle"
+              style="font-size: 12px; user-select: none;">
             {{ listnode.label }}
+        </text>
+        <text v-for="(listnode, index) in listNodes" :key="'label'+index"
+              :x="listnode.x" :y="listnode.y" alignment-baseline="middle" text-anchor="middle"
+              style="font-size: 12px; user-select: none;">
+            {{ listnode.value }}
         </text>
         <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
                 orient="auto" markerUnits="strokeWidth">
@@ -28,6 +33,7 @@
         label: string;
         x: number;
         y: number;
+        value: number;
     }
 
     interface Edge {
@@ -49,7 +55,7 @@
             },
             radius: {
                 type: Number,
-                default: 20
+                default: 30
             },
             isBst: {
                 type: Boolean,
