@@ -15,19 +15,19 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, onMounted, PropType } from 'vue';
+    import { defineComponent, PropType } from 'vue';
 
     interface TreeNode {
         id: number;
-        parentId?: number; // Optional parent ID
+        parentid?: number;
         label: string;
         x: number;
         y: number;
     }
 
     interface Edge {
-        from: number; // Assuming these are indexes in the vertices array
-        to: number;
+        from: number; // Index of the parent node in the treeNodes array
+        to: number; // Index of the child node in the treeNodes array
     }
 
     export default defineComponent({
@@ -57,23 +57,20 @@
         },
         computed: {
             edges() {
-                console.log("TreeNodes: ", this.treeNodes)
-                const edgeList = this.treeNodes
-                    .filter(node => node.parentId !== undefined) // Only consider nodes with a parent
-                    .map(node => {
-                        // Find the parent node index
-                        const parentNodeIndex = this.treeNodes.findIndex(parent => parent.id === node.parentId);
-                        if (parentNodeIndex === -1) {
-                            console.error('Parent node not found for node', node);
+                const computedEdges = this.treeNodes?.filter(node => node.parentid !== undefined)
+                    ?.map(node => {
+                        const parentIndex = this.treeNodes.findIndex(parent => parent.id === node.parentid);
+                        if (parentIndex === -1) {
                             return null;
                         }
-                        // Find the current node index
-                        const currentNodeIndex = this.treeNodes.indexOf(node);
-                        return { from: parentNodeIndex, to: currentNodeIndex };
+                        return {
+                            from: parentIndex,
+                            to: this.treeNodes.indexOf(node)
+                        };
                     })
-                    .filter(edge => edge !== null); // Remove any null entries
-                console.log('Generated edges:', edgeList);
-                return edgeList;
+                    ?.filter(edge => edge !== null) || [];
+
+                return computedEdges;
             }
         },
         methods: {
@@ -82,15 +79,15 @@
                 const tonode = this.treeNodes[edge.to];
 
                 if (!fromnode || !tonode) {
-                    console.error('Undefined vertex detected', { fromnode, tonode });
-                    return ''; // Return an empty path if vertices are undefined
+                    console.error('Undefined tree node detected', { fromnode, tonode });
+                    return ''; // Return an empty path if nodes are undefined
                 }
 
                 const dx = tonode.x - fromnode.x;
                 const dy = tonode.y - fromnode.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Adjust start and end points to be on the edge of the vertex circles
+                // Adjust start and end points to be on the edge of the circles
                 const offsetX = (dx * this.radius) / dist;
                 const offsetY = (dy * this.radius) / dist;
 
@@ -103,7 +100,5 @@
             },
         }
     });
-
 </script>
-
 

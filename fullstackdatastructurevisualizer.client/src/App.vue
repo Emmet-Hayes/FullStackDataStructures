@@ -3,18 +3,22 @@
     import GraphVisualizer from './components/GraphVisualizer.vue';
     import TreeVisualizer from './components/TreeVisualizer.vue';
     import ListVisualizer from './components/ListVisualizer.vue';
+    /*
     import ArrayVisualizer from './components/ArrayVisualizer.vue';
     import DictVisualizer from './components/DictVisualizer.vue';
+    */
 
     const graphData = ref({ vertices: [], edges: [] });
 
     const treeData = ref({ treeNodes: [] });
-
+    /*
     const listData = ref({ listNodes: [] });
 
+    
     const arrayData = ref({ arrayNodes: [] });
 
     const dictData = ref({ dictNodes: [] });
+    */
 
     onMounted(async () => {
         const response = await fetch('/Graph'); // Adjust the endpoint as necessary
@@ -32,7 +36,7 @@
             treeData.value = data2;
             console.log("after the transfer");
         }
-        
+        /*
         console.log("Tring to get the list");
         const response3 = await fetch('/List');
         if (response3.ok)
@@ -43,7 +47,7 @@
         }
         
         console.log("Tring to get the array");
-        const response4 = await fetch('/Array');
+        const response4 = await fetch('/AArray');
         if (response4.ok) {
             console.log("Response is ok");
             const data4 = await response4.json();
@@ -51,12 +55,12 @@
         }
 
         console.log("Tring to get the dictionary");
-        const response5 = await fetch('/Dictionary');
+        const response5 = await fetch('/DDict');
         if (response5.ok) {
             console.log("Response is ok");
             const data5 = await response5.json();
             dictData.value = data5;
-        }
+        }*/
     });
 </script>
 
@@ -66,11 +70,12 @@
         <br />
         <TreeVisualizer :treeNodes="treeData.treeNodes" :isBst="treeData.isBst" :isBalanced="treeData.isBalanced" />
         <br />
+        <!--
         <ListVisualizer :listNodes="listData.listNodes" :isdoublylinked="listData.isDoublyLinked" />
         <br />
         <ArrayVisualizer :arrayNodes="arrayData.arrayNodes" :isdynamic="arrayData.isDynamic" />
         <br />
-        <DictVisualizer :dictNodes="dictData.dictNodes" :hashfunction="dictData.hashfunction" />
+        <DictVisualizer :dictNodes="dictData.dictNodes" :hashfunction="dictData.hashfunction" />-->
     </main>
 </template>
 
