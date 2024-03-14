@@ -1,8 +1,10 @@
 <template>
-    <svg :width="width" :height="height" style="border: 1px solid black;">
+    <svg :width="width" :height="height" style="border: 1px solid black;"
+         @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
         <circle v-for="(listnode, index) in listNodes" :key="'listnode'+index"
                 :cx="listnode.x" :cy="listnode.y" :r="radius"
-                style="fill: lightblue; stroke: black; stroke-width: 1px;" />
+                style="fill: lightblue; stroke: black; stroke-width: 1px;"
+                @mousedown="mouseDown(index, $event)" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
               :d="calculatePathD(edge)"
               :style="getPathStyle(edge)" />
@@ -88,6 +90,14 @@
                 return computedEdges;
             }
         },
+        data() {
+            return {
+                dragging: false,
+                draggedNodeIndex: null,
+                startX: 0,
+                startY: 0,
+            };
+        },
         methods: {
             getPathStyle(edge: Edge) {
                 return {
@@ -129,6 +139,30 @@
 
                 return `M ${startX} ${startY} L ${endX} ${endY}`;
             },
+            mouseDown(index, event) {
+                this.dragging = true;
+                this.draggedNodeIndex = index;
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseMove(event) {
+                if (!this.dragging || this.draggedNodeIndex === null) return;
+
+                const dx = event.clientX - this.startX;
+                const dy = event.clientY - this.startY;
+
+                this.listNodes[this.draggedNodeIndex].x += dx;
+                this.listNodes[this.draggedNodeIndex].y += dy;
+
+                // Update start position for next move event
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseUp() {
+                this.dragging = false;
+                this.draggedNodeIndex = null;
+            },
+
         }
     });
 

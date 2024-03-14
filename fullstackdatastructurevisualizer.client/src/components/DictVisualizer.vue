@@ -1,7 +1,9 @@
 <template>
-    <svg :width="width" :height="height" style="border: 1px solid black;">
+    <svg :width="width" :height="height" style="border: 1px solid black;"
+         @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
         <!-- Draw squares for dictNodes -->
-        <g v-for="(dictnode, index) in dictNodes" :key="'dictnode'+index">
+        <g v-for="(dictnode, index) in dictNodes" :key="'dictnode'+index"
+           @mousedown="mouseDown(index, $event)">
             <!-- Rectangle for the key (left half) -->
             <rect :x="dictnode.x" :y="dictnode.y" :width="size" :height="size/2"
                   style="fill: lightcoral; stroke: black; stroke-width: 1px;" />
@@ -41,7 +43,7 @@
     }
 
     interface Edge {
-        from: number; // Assuming these are indexes in the vertices array
+        from: number; // Assuming these are indexes in the dictNodes array
         to: number;
     }
 
@@ -70,6 +72,39 @@
                 type: Boolean,
                 default: false
             }
+        },
+        data() {
+            return {
+                dragging: false,
+                draggedNodeIndex: null,
+                startX: 0,
+                startY: 0,
+            };
+        },
+        methods: {
+            mouseDown(index, event) {
+                this.dragging = true;
+                this.draggedNodeIndex = index;
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseMove(event) {
+                if (!this.dragging || this.draggedNodeIndex === null) return;
+
+                const dx = event.clientX - this.startX;
+                const dy = event.clientY - this.startY;
+
+                this.dictNodes[this.draggedNodeIndex].x += dx;
+                this.dictNodes[this.draggedNodeIndex].y += dy;
+
+                // Update start position for next move event
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseUp() {
+                this.dragging = false;
+                this.draggedNodeIndex = null;
+            },
         }
     });
 

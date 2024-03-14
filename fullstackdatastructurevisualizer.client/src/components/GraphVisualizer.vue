@@ -1,8 +1,10 @@
 <template>
-    <svg :width="width" :height="height" style="border: 1px solid black;">
+    <svg :width="width" :height="height" style="border: 1px solid black;"
+         @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
         <circle v-for="(vertex, index) in vertices" :key="'vertex'+index"
                 :cx="vertex.x" :cy="vertex.y" :r="radius"
-                style="fill: lightsteelblue; stroke: black; stroke-width: 1px;" />
+                style="fill: lightsteelblue; stroke: black; stroke-width: 1px;"
+                @mousedown="mouseDown(index, $event)" />
         <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
                 orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#000" />
@@ -68,6 +70,14 @@
                 default: false
             }
         },
+        data() {
+            return {
+                dragging: false,
+                draggedVertexIndex: null,
+                startX: 0,
+                startY: 0,
+            };
+        },
         methods: {
             calculatePathD(edge: Edge) {
                 const fromvertex = this.vertices[edge.from];
@@ -106,7 +116,30 @@
                     x: (fromvertex.x + tovertex.x) / 2,
                     y: (fromvertex.y + tovertex.y - 30) / 2
                 };
-            }
+            },
+            mouseDown(index, event) {
+                this.dragging = true;
+                this.draggedVertexIndex = index;
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseMove(event) {
+                if (!this.dragging || this.draggedVertexIndex === null) return;
+
+                const dx = event.clientX - this.startX;
+                const dy = event.clientY - this.startY;
+
+                this.vertices[this.draggedVertexIndex].x += dx;
+                this.vertices[this.draggedVertexIndex].y += dy;
+
+                // Update start position for next move event
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseUp() {
+                this.dragging = false;
+                this.draggedVertexIndex = null;
+            },
         }
     });
 </script>

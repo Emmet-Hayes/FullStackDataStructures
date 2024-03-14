@@ -1,8 +1,10 @@
 <template>
-    <svg :width="width" :height="height" style="border: 1px solid black;">
+    <svg :width="width" :height="height" style="border: 1px solid black;"
+         @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
         <circle v-for="(treenode, index) in treeNodes" :key="'treenode'+index"
                 :cx="treenode.x" :cy="treenode.y" :r="radius"
-                style="fill: limegreen; stroke: black; stroke-width: 1px;" />
+                style="fill: limegreen; stroke: black; stroke-width: 1px;"
+                @mousedown="mouseDown(index, $event)" />
         <path v-for="(edge, index) in edges" :key="'edge' + index"
               :d="calculatePathD(edge)"
               style="stroke: black; stroke-width: 2px; fill: none;" />
@@ -60,6 +62,14 @@
                 default: false
             }
         },
+        data() {
+            return {
+                dragging: false,
+                draggedNodeIndex: null,
+                startX: 0,
+                startY: 0,
+            };
+        },
         computed: {
             edges() {
                 const computedEdges = this.treeNodes?.filter(node => node.parentid !== undefined)
@@ -102,6 +112,29 @@
                 const endY = tonode.y - offsetY;
 
                 return `M ${startX} ${startY} L ${endX} ${endY}`;
+            },
+            mouseDown(index, event) {
+                this.dragging = true;
+                this.draggedNodeIndex = index;
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseMove(event) {
+                if (!this.dragging || this.draggedNodeIndex === null) return;
+
+                const dx = event.clientX - this.startX;
+                const dy = event.clientY - this.startY;
+
+                this.treeNodes[this.draggedNodeIndex].x += dx;
+                this.treeNodes[this.draggedNodeIndex].y += dy;
+
+                // Update start position for next move event
+                this.startX = event.clientX;
+                this.startY = event.clientY;
+            },
+            mouseUp() {
+                this.dragging = false;
+                this.draggedNodeIndex = null;
             },
         }
     });
