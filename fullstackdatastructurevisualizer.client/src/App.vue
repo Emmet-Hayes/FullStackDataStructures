@@ -24,38 +24,31 @@
             graphData.value = data;
         }
 
-        console.log("Trying to get the Tree");
         const response2 = await fetch('/Tree');
         if (response2.ok)
         {
             const data2 = await response2.json();
             treeData.value = data2;
-            console.log("after the transfer");
         }
-        console.log("Tring to get the list");
+
         const response3 = await fetch('/LList');
         if (response3.ok)
         {
-            console.log("Response is ok", response3);
             const data3 = await response3.json();
             listData.value = data3;
         }
 
-        console.log("Tring to get the array");
         const response4 = await fetch('/AArray');
-        if (response4.ok) {
-            console.log("Response is ok in array");
+        if (response4.ok)
+        {
             const data4 = await response4.json();
-            console.log("json data: ", data4);
             arrayData.value = data4;
         }
 
-        console.log("Tring to get the dictionary");
         const response5 = await fetch('/DDict');
-        if (response5.ok) {
-            console.log("Response is ok in dict");
+        if (response5.ok)
+        {
             const data5 = await response5.json();
-            console.log("json data: ", data5);
             dictData.value = data5;
         }
     });
@@ -71,14 +64,13 @@
         <br />
         <h1>Dictionaries</h1>
         <DictVisualizer :dictNodes="dictData.dictNodes" :hashfunction="dictData.hashfunction" />
+        <br />
         <h1>Trees</h1>
         <TreeVisualizer :treeNodes="treeData.treeNodes" :isBst="treeData.isBst" :isBalanced="treeData.isBalanced" />
         <br />
         <h1>Graphs</h1>
         <GraphVisualizer :vertices="graphData.vertices" :edges="graphData.edges" :isDirected="graphData.isDirected" />
         <br />
-
-
     </main>
 </template>
 
@@ -108,5 +100,8 @@
             place-items: flex-start;
             flex-wrap: wrap;
         }
+    }
+    h1 {
+        text-align: center;
     }
 </style>

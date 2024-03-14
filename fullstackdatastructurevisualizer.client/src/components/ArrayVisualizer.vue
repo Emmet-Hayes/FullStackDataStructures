@@ -1,19 +1,20 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;"
          @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
-        <!-- Draw squares for arrayNodes -->
         <g v-for="(arraynode, index) in arrayNodes" :key="'arraynode'+index">
             <rect :x="arraynode.x" :y="arraynode.y" :width="size" :height="size"
                   style="fill: lightcoral; stroke: black; stroke-width: 1px;"
                   @mousedown="mouseDown(index, $event)" />
-            <!-- Label text -->
             <text :x="arraynode.x + size/2" :y="arraynode.y - 25" alignment-baseline="middle" text-anchor="middle"
-                  style="font-size: 12px; user-select: none;">
+                  style="font-size: 16px; user-select: none;">
                 {{ arraynode.label }}
             </text>
-            <!-- Value text (optional: adjust positioning as needed) -->
+            <text :x="arraynode.x + size/2" :y="arraynode.y - 5" alignment-baseline="middle" text-anchor="middle"
+                  style="font-size: 12px; user-select: none;">
+                {{ arraynode.index }}
+            </text>
             <text :x="arraynode.x + size/2" :y="arraynode.y + 25" alignment-baseline="middle" text-anchor="middle"
-                  style="font-size: 10px; user-select: none;">
+                  style="font-size: 12px; user-select: none;">
                 {{ arraynode.value }}
             </text>
         </g>
@@ -92,7 +93,6 @@
             },
         }
     });
-
 </script>
 
 

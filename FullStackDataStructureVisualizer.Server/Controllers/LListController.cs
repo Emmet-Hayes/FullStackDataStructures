@@ -17,7 +17,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "List")]
+        [HttpGet(Name = "GetList")]
         public async Task<ActionResult<LList>> Get()
         {
             Console.WriteLine("List Get was called.");

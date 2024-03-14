@@ -1,28 +1,22 @@
 <template>
     <svg :width="width" :height="height" style="border: 1px solid black;"
          @mousemove="mouseMove" @mouseup="mouseUp" @mouseleave="mouseUp">
-        <!-- Draw squares for dictNodes -->
         <g v-for="(dictnode, index) in dictNodes" :key="'dictnode'+index"
            @mousedown="mouseDown(index, $event)">
-            <!-- Rectangle for the key (left half) -->
-            <rect :x="dictnode.x" :y="dictnode.y" :width="size" :height="size/2"
-                  style="fill: lightcoral; stroke: black; stroke-width: 1px;" />
-            <!-- Rectangle for the value (right half) -->
             <rect :x="dictnode.x" :y="dictnode.y - size/2" :width="size" :height="size/2"
-                  style="fill: lightblue; stroke: black; stroke-width: 1px;" />
-            <!-- Label text -->
+                  style="fill: lightskyblue; stroke: black; stroke-width: 1px;" />
+            <rect :x="dictnode.x" :y="dictnode.y" :width="size" :height="size/2"
+                  style="fill: lightseagreen; stroke: black; stroke-width: 1px;" />
             <text :x="dictnode.x + size/2" :y="dictnode.y - 50" alignment-baseline="middle" text-anchor="middle"
-                  style="font-size: 12px; user-select: none;">
+                  style="font-size: 16px; user-select: none;">
                 {{ dictnode.label }}
             </text>
-            <!-- Key text (optional: adjust positioning as needed) -->
-            <text :x="dictnode.x + size/2" :y="dictnode.y - 25" alignment-baseline="middle" text-anchor="middle"
-                  style="font-size: 10px; user-select: none;">
+            <text :x="dictnode.x + size/2" :y="dictnode.y - 20" alignment-baseline="middle" text-anchor="middle"
+                  style="font-size: 12px; user-select: none;">
                 {{ dictnode.key }}
             </text>
-            <!-- Value text (optional: adjust positioning as needed) -->
-            <text :x="dictnode.x + size/2" :y="dictnode.y + 25" alignment-baseline="middle" text-anchor="middle"
-                  style="font-size: 10px; user-select: none;">
+            <text :x="dictnode.x + size/2" :y="dictnode.y + 20" alignment-baseline="middle" text-anchor="middle"
+                  style="font-size: 12px; user-select: none;">
                 {{ dictnode.value }}
             </text>
         </g>
@@ -33,10 +27,10 @@
 <script lang="ts">
     import { defineComponent, onMounted, PropType } from 'vue';
 
-    interface DictNode {
+    interface DictNode
+    {
         id: number;
         listid: number;
-        nextid: number; // Optional next ID
         label: string;
         x: number;
         y: number;
@@ -107,8 +101,6 @@
             },
         }
     });
-
-
 </script>
 
 

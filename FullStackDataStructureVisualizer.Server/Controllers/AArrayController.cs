@@ -17,7 +17,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Array")]
+        [HttpGet(Name = "GetArray")]
         public async Task<ActionResult<AArray>> Get()
         {
             var aarrayList = await _context.AArray.ToListAsync();

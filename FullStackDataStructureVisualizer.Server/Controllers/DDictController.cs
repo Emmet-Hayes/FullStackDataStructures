@@ -17,7 +17,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Dict")]
+        [HttpGet(Name = "GetDict")]
         public async Task<ActionResult<DDict>> Get()
         {
             var ddictList = await _context.DDict.ToListAsync();

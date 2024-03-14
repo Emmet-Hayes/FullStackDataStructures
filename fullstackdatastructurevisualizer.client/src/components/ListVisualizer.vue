@@ -5,12 +5,9 @@
                 :cx="listnode.x" :cy="listnode.y" :r="radius"
                 style="fill: lightblue; stroke: black; stroke-width: 1px;"
                 @mousedown="mouseDown(index, $event)" />
-        <path v-for="(edge, index) in edges" :key="'edge' + index"
-              :d="calculatePathD(edge)"
-              :style="getPathStyle(edge)" />
         <text v-for="(listnode, index) in listNodes" :key="'label'+index"
               :x="listnode.x" :y="listnode.y - 40" alignment-baseline="middle" text-anchor="middle"
-              style="font-size: 12px; user-select: none;">
+              style="font-size: 16px; user-select: none;">
             {{ listnode.label }}
         </text>
         <text v-for="(listnode, index) in listNodes" :key="'label'+index"
@@ -18,6 +15,9 @@
               style="font-size: 12px; user-select: none;">
             {{ listnode.value }}
         </text>
+        <path v-for="(edge, index) in edges" :key="'edge' + index"
+              :d="calculatePathD(edge)"
+              :style="getPathStyle(edge)" />
         <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3"
                 orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#000" />
@@ -26,7 +26,6 @@
                 orient="auto" markerUnits="strokeWidth">
             <path d="M9,0 L9,6 L0,3 z" fill="#000" />
         </marker>
-
     </svg>
 </template>
 
@@ -162,10 +161,8 @@
                 this.dragging = false;
                 this.draggedNodeIndex = null;
             },
-
         }
     });
-
 </script>
 
 

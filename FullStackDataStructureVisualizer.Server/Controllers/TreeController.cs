@@ -17,7 +17,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Tree")]
+        [HttpGet(Name = "GetTree")]
         public async Task<ActionResult<Tree>> Get()
         {
             var treeList = await _context.Trees.ToListAsync();

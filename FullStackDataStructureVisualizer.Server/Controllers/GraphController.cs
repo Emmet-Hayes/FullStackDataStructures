@@ -17,7 +17,7 @@ namespace FullStackDataStructureVisualizer.Server.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Graph")]
+        [HttpGet(Name = "GetGraph")]
         public async Task<ActionResult<Graph>> Get()
         {
             var graphList = await _context.Graphs.ToListAsync();

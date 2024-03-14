@@ -10,7 +10,7 @@
               style="stroke: black; stroke-width: 2px; fill: none;" />
         <text v-for="(treenode, index) in treeNodes" :key="'label'+index"
               :x="treenode.x" :y="treenode.y - 30" alignment-baseline="middle" text-anchor="middle"
-              style="font-size: 12px; user-select: none;">
+              style="font-size: 16px; user-select: none;">
             {{ treenode.label }}
         </text>
         <text v-for="(treenode, index) in treeNodes" :key="'label'+index"
