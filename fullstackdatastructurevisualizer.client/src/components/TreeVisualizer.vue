@@ -19,6 +19,8 @@
             {{ treenode.value }}
         </text>
     </svg>
+    <button @click="isValidBST()">Validate BST</button>
+    <span v-if="isValidBSTResult !== null">{{ isValidBSTResult ? 'True' : 'False' }}</span>
 </template>
 
 <script lang="ts">
@@ -68,6 +70,7 @@
                 draggedNodeIndex: null,
                 startX: 0,
                 startY: 0,
+                isValidBSTResult: null,
             };
         },
         computed: {
@@ -135,6 +138,35 @@
             mouseUp() {
                 this.dragging = false;
                 this.draggedNodeIndex = null;
+            },
+            isValidBST() {
+                // Helper function to construct the tree and validate the BST property
+                const validateNode = (nodeIndex, lowerBound, upperBound) => {
+                    if (nodeIndex === -1) {
+                        return true;
+                    }
+
+                    const nodeValue = parseInt(this.treeNodes[nodeIndex].label); // Assuming the label is the node's value
+
+                    if ((lowerBound !== null && nodeValue <= lowerBound) || (upperBound !== null && nodeValue >= upperBound)) {
+                        return false;
+                    }
+
+                    const leftChildIndex = this.treeNodes.findIndex(child => child.parentid === this.treeNodes[nodeIndex].id && child.x < this.treeNodes[nodeIndex].x);
+                    const rightChildIndex = this.treeNodes.findIndex(child => child.parentid === this.treeNodes[nodeIndex].id && child.x > this.treeNodes[nodeIndex].x);
+
+                    return validateNode(leftChildIndex, lowerBound, nodeValue) && validateNode(rightChildIndex, nodeValue, upperBound);
+                };
+
+                // Find the index of the root node (assuming it's the one with no parent)
+                const rootNodeIndex = this.treeNodes.findIndex(node => node.parentid === undefined || node.parentid === null);
+
+                if (rootNodeIndex === -1) {
+                    console.error("No root node found");
+                    return false;
+                }
+
+                this.isValidBSTResult = validateNode(rootNodeIndex, null, null);
             },
         }
     });

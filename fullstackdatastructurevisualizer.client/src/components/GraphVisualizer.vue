@@ -335,9 +335,12 @@
                         }
                     });
 
-                    // Unhighlight and mark as traversed for visualization purposes
+                    // Unhighlight and mark as traversed or unreachable for visualization purposes
                     this.vertices[u].highlighted = false;
-                    this.vertices[u].traversed = true;
+                    if (distances[u] === Infinity)
+                        this.vertices[u].unreachable = true;
+                    else
+                        this.vertices[u].traversed = true;
                 }
             },
             async clearTraversal()
